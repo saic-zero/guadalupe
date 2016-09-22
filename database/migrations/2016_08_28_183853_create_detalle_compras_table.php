@@ -22,8 +22,11 @@ class CreateDetalleComprasTable extends Migration
           $table->double('precioMaxVenta');
           $table->date('fechaVencimiento');
           $table->string('lote');
+          $table->integer('presentacion_id')->unsigned();
+          $table->foreign('presentacion_id')->references('id')->on('presentaciones');
           $table->integer('compra_id')->unsigned();
           $table->foreign('compra_id')->references('id')->on('compras');
+          $table->double('IVA');
           $table->integer('estante_id')->unsigned();
           $table->foreign('estante_id')->references('id')->on('estantes');
           $table->timestamps();

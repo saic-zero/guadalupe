@@ -20,9 +20,10 @@ class ProveedorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-       $proveedors= \SICVFG\Proveedor::paginate(2);
-        return view('proveedor.index',compact('proveedors'));
+    {   
+        $estado=2;
+       $proveedors= \SICVFG\Proveedor::all();
+        return view('proveedor.index',compact('proveedors','estado'));
     }
   /**
      * Show the form for creating a new resource.
@@ -49,7 +50,6 @@ class ProveedorController extends Controller
         'correoProv'=> $request['correoProv'],
         'direccionProv'=>$request['direccionProv'],
         'telefonoProv'=> $request['telefonoProv'],
-        'estadoProv'=> $request['estadoProv'],
        ]);
       return redirect('/proveedor')->with('mensaje','Proveedor Agregado con Exito');
   }
@@ -61,9 +61,14 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id)//El metodo show se utilizara en este caso para habilitar un proveedor
     {
-        //
+        /*
+        $proveedor=\SICVFG\Proveedor::findOrFail($id);
+        $proveedor->estadoProv=1; //modificamos el estado a cero asumir que esta deshabilitado
+        $proveedor->update();
+        Session::flash('mensaje','Proveedor Habilitado con Exito');
+        return Redirect::to('/proveedor');*/
     }
 
     /**
@@ -104,11 +109,27 @@ class ProveedorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        \SICVFG\Proveedor::destroy($id);
-        Session::flash('mensaje','Proveedor Eliminado con Exito');
-        return Redirect::to('/proveedor');
+    {    
+    
+        /*$proveedor=\SICVFG\Proveedor::findOrFail($id);
+        $proveedor->estadoProv=0; //modificamos el estado a cero asumir que esta deshabilitado
+        $proveedor->update();
+         Session::flash('mensaje','Proveedor deshabilitado con Exito');
+        return Redirect::to('/proveedor');*/
     }
 
+
+      public function desactivo($id)
+    {
+         $estado=0;
+        $proveedors= \SICVFG\Proveedor::All();
+        return view('proveedor.index',compact('proveedors','estado'));
+    }
+    public function activo($id)
+    {
+        $estado=1;
+        $proveedors= \SICVFG\Proveedor::All();
+        return view('proveedor.index',compact('proveedors','estado'));
+    }
 
 }

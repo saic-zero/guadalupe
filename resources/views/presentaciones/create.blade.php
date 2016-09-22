@@ -4,10 +4,12 @@
 @section('content')
 
 @include('alertas.request')
-{!! Form::open(['route'=>'producto.store','method'=>'POST']) !!}
+{!! Form::open(['route'=>'presentaciones.store','method'=>'POST']) !!}
 
-    @include('producto.formulario.forProductoCreate')
+    @include('presentaciones.formulario.forPresentaciones')
   {!! Form::submit('Registrar',['class'=>'btn btn-primary']) !!}
   {!! Form::reset('Cancelar',['class'=>'btn btn-danger']) !!}
 {!! Form::close() !!}
 	@endsection
+
+   

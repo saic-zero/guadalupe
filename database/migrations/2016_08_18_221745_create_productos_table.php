@@ -17,12 +17,12 @@ class CreateProductosTable extends Migration
             $table->string('codProducto');
             $table->string('nombreProd');
             $table->string('descripcionProd');
-            $table->string('presentacionProd');
             $table->integer('stockMinimo');
             $table->integer('stockMaximo');
-            $table->timestamps();
             $table->integer('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->boolean('estadoProd')->default(true);
+            $table->timestamps();
         });
     }
 

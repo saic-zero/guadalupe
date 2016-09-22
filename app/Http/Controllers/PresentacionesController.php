@@ -6,27 +6,20 @@ use Illuminate\Http\Request;
 
 use SICVFG\Http\Requests;
 use SICVFG\Http\Controllers\Controller;
-use SICVFG\Producto;
-use Session;
-use Redirect;
-use View;
 
-
-class ProductoController extends Controller
+class PresentacionesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-     public function index()
-    { 
+    public function index()
+    {
       $estado=2;
-     $productos= \SICVFG\Producto::All();
-     return view('producto.index',compact('productos','estado'));
+      $presentaciones= \SICVFG\Presentaciones::All();
+     return view('presentaciones.index',compact('presentaciones','estado'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -35,11 +28,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-     $categorias=\SICVFG\Categoria::lists('nombreCategoria','id');
-     return view('producto.create',compact('categorias'));
+    $productos=\SICVFG\Producto::lists('nombreProd','id');
+     return view('presentaciones.create',compact('productos'));
     }
-
- 
 
     /**
      * Store a newly created resource in storage.
@@ -49,19 +40,18 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        \SICVFG\Producto::create([
-        'codProducto'=>$request['codProducto'],
-        'nombreProd'=>$request['nombreProd'],
-        'descripcionProd'=> $request['descripcionProd'],
-        'presentacionProd'=>$request['presentacionProd'],
-        'stockMinimo'=>$request['stockMinimo'],
-        'stockMaximo'=> $request['stockMaximo'],
-        'categoria_id'=> $request['categoria_id'],
-      ]);
-        return redirect('/producto')->with('mensaje','Producto Agregado con Exito');
+          
+        \SICVFG\Presentaciones::create([
+        'nombrePre'=>$request['nombrePre'],
+        'equivale'=>$request['equivale'],
+         'ganancia'=> $request['ganancia'],
+        'producto_id'=>$request['producto_id'],
+        ]);
+        return redirect('/presentaciones')->with('mensaje','presentacion Agregado con Exito');
         
     }
 
+        
 
     /**
      * Display the specified resource.
@@ -71,7 +61,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
 
     /**
@@ -82,16 +72,16 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-      //return"Se esta editando el producto #".$id;
-     $categorias=\SICVFG\Categoria::All();
-     $producto= \SICVFG\Producto::find($id);
-     if(is_null($producto))//Si el producto no existe
+              //return"Se esta editando el producto #".$id;
+     $productos=\SICVFG\Producto::All();
+     $presentaciones= \SICVFG\Presentaciones::find($id);
+     if(is_null($presentaciones))//Si no existe
        {
         App::abort(404);
        }
-     return view('producto.edit',compact('producto','categorias'));//si no
+     return view('presentaciones.edit',compact('presentaciones','productos'));//si no
     }
- 
+
     /**
      * Update the specified resource in storage.
      *
@@ -101,12 +91,12 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $producto= \SICVFG\Producto::find($id);
-        $producto->fill($request->all());
-        $producto->save();
+         $presentaciones= \SICVFG\Presentaciones::find($id);
+        $presentaciones->fill($request->all());
+        $presentaciones->save();
        
-        Session::flash('mensaje','Producto Editado con Exito');
-        return Redirect::to('/producto');
+        Session::flash('mensaje','presentación Editado con Exito');
+        return Redirect::to('/presentaciones');
     }
 
     /**
@@ -119,16 +109,18 @@ class ProductoController extends Controller
     {
         //
     }
+
  public function desactivo($id)
     {
         $estado=0;
-        $productos= \SICVFG\Producto::All();
-        return view('producto.index',compact('productos','estado'));
+        $presentaciones= \SICVFG\Presentaciones::All();
+        return view('presentaciones.index',compact('presentaciones','estado'));
     }
     public function activo($id)
     {
         $estado=1;
-        $productos= \SICVFG\Producto::All();
-        return view('producto.index',compact('productos','estado'));
+        $presentaciones= \SICVFG\Presentaciones::All();
+        return view('presentaciones.index',compact('presentaciones','estado'));
     }
+
 }

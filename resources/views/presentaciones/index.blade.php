@@ -18,37 +18,33 @@
   <div class="col-xs-12">
     <div class="box box-success">
       <div class="box-header">
-        <h3 class="box-title">Administración de Proveedores</h3>
+        <h3 class="box-title">Administración de Presentaciones</h3>
       </div><!-- /.box-header -->
       <br>
-      {!!link_to_action("ProveedorController@index", $title = "Todos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
-      {!!link_to_action("ProveedorController@activo", $title = "activos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
-      {!!link_to_action("ProveedorController@desactivo", $title = "Desactivos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      {!!link_to_action("PresentacionesController@index", $title = "Todos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      {!!link_to_action("PresentacionesController@activo", $title = "activos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      {!!link_to_action("PresentacionesController@desactivo", $title = "Desactivos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       <br><br>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
-                     <th>EMPRESA</th>
-                      <th>CONTACTO</th>
-                      <th>CORREO</th>
-                      <th>DIRECCION</th>
-                      <th>TELEFONO</th>
-                      <th>ACCION</th>
+                <th>NOMBRE</th>
+                <th>EQUIVALENCIA</th>
+                <th>GANANCIA</th>
+                <th>ACCION</th>
             </tr>
           </thead>
-          @foreach ($proveedors as $proveedor)
-            @if($proveedor->estadoProv==1 && $estado==1)
+          @foreach ($presentaciones as $p)
+            @if($p->estadoPres==1 && $estado==1)
               <tbody>
                 <tr>
-                  
-                     <td>{{$proveedor->nombreProv}}</td>
-                     <td>{{$proveedor->representanteProv}}</td>
-                     <td>{{$proveedor->correoProv}}</td>
-                     <td>{{$proveedor->direccionProv}}</td>
-                     <td>{{$proveedor->telefonoProv}}</td>
+                    <td>{{$p->nombrePre}}</td>
+                    <td><center>{{$p->equivale}}</center></td>
+                    <td><center>{{'$ '.$p->ganancia}}</center></td>
+             
                   <td><center>
-                    {!!link_to_route('proveedor.edit',$title='Editar', $parametro=$proveedor->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    {!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}
                     <button class="warning cancel delete-modal btn btn-danger">
                       <span class="glyphicon glyphicon-trash"></span> Dar de baja
                     </button>
@@ -57,17 +53,15 @@
                 </tr>
               </tbody>
             @endif
-           @if($proveedor->estadoProv==0 && $estado==0)
+           @if($p->estadoPres==0 && $estado==0)
               <tbody>
                 <tr>
- 
-                     <td>{{$proveedor->nombreProv}}</td>
-                     <td>{{$proveedor->representanteProv}}</td>
-                     <td>{{$proveedor->correoProv}}</td>
-                     <td>{{$proveedor->direccionProv}}</td>
-                     <td>{{$proveedor->telefonoProv}}</td>
+                  <td>{{$p->nombrePre}}</td>
+                    <td><center>{{$p->equivale}}</center></td>
+                    <td><center>{{'$ '.$p->ganancia}}</center></td>
+             
                   <td><center>
-                    {!!link_to_route('proveedor.edit',$title='Editar', $parametro=$proveedor->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    {!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}
                     <button class="warning cancel delete-modal btn btn-danger">
                       <span class="glyphicon glyphicon-trash"></span> Activar
                     </button>
@@ -77,16 +71,14 @@
               </tbody>
             @endif
             @if($estado==2)
-              <tbody>
+             <tbody>
                 <tr>
-                     <td>{{$proveedor->nombreProv}}</td>
-                     <td>{{$proveedor->representanteProv}}</td>
-                     <td>{{$proveedor->correoProv}}</td>
-                     <td>{{$proveedor->direccionProv}}</td>
-                     <td>{{$proveedor->telefonoProv}}</td>
+                    <td>{{$p->nombrePre}}</td>
+                    <td><center>{{$p->equivale}}</center></td>
+                    <td><center>{{'$ '.$p->ganancia}}</center></td>
                   <td><center>
-                    {!!link_to_route('proveedor.edit',$title='Editar', $parametro=$proveedor->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    @if($proveedor->estadoProv==1)
+                    {!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    @if($p->estadoPres==1)
                       <button class="warning cancel delete-modal btn btn-danger">
                         <span class="glyphicon glyphicon-trash"></span> Dar de baja
                       </button>
@@ -98,8 +90,8 @@
                   </center>
                   </td>
                 </tr>
-              </tbody>
-            @endif
+             </tbody> 
+            @endif 
           @endforeach
         </table>
       </div><!-- /.box-body -->

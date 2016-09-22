@@ -35,16 +35,10 @@ if($bandera==1){
 	    <tr>
 		    <div class="form-group">
 			<td>{!!Form::label('lbDescripcionPro','Descripción:')!!}</td>
-			<td>{!!Form::textarea('descripcionProd',null,['class'=>'form-control', 'placeholder'=>'Descripción del Producto','required'])!!}</td>
+			<td>{!!Form::textarea('descripcionProd',null,['class'=>'form-control', 'placeholder'=>'Descripción del Producto','required','rows'=2])!!}</td>
 		    </div>
 	     </tr>
 
-       <tr>
-		    <div class="form-group">
-			<td>{!!Form::label('lbPresentacionPro','Presentación:')!!}</td>
-			<td>{!!Form::text('presentacionProd',null,['class'=>'form-control', 'placeholder'=>'Presentación del Producto','required'])!!}</td>
-			</div>
-	   </tr>
 
       <tr>
 	      	<div class="form-group">
@@ -76,8 +70,6 @@ if($bandera==1){
 				</select></td>
 			</div>
       </tr>
-	    
-     
         </table>
         </div>
       </div><!-- /.col -->

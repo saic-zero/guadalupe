@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 @section('content')
 @if (Session::has('mensaje'))
@@ -6,69 +7,89 @@
 {{Session::get('mensaje')}}
 </div>
 @endif
+@if (Session::has('mensaje1'))
+<div class="alert alert-warning" role="alert" >
+  <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
+{{Session::get('mensaje1')}}
+</div>
+@endif
 
 <div class="row">
   <div class="col-xs-12">
-    <div class="box">
+    <div class="box box-success">
       <div class="box-header">
-        <h3 class="box-title">Listado de Productos</h3>
+        <h3 class="box-title">Administración de Productos</h3>
       </div><!-- /.box-header -->
+      <br>
+      {!!link_to_action("ProductoController@index", $title = "Todos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      {!!link_to_action("ProductoController@activo", $title = "activos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      {!!link_to_action("ProductoController@desactivo", $title = "Desactivos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      <br><br>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
-               <thead>
-                    <th>NOMBRE</th>
-                    <th>MODIFICAR</th>
-                    <th>DESHABILITAR</th>
-                  </thead>
-                  @foreach ($productos as $producto)
-                  <tbody>
-                    <td>{{$producto->nombreProd}}</td>
-                    <td>
-                      {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    </td>
-                    <td>@include('producto.eliminar')</td>
-
-                  </tbody>
-                 @endforeach
-           </table>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-    </div><!-- /.col -->
-  </div><!-- /.row -->
-  <div>
-
-    <script>
-    $(function () {
-      $("#example1").DataTable();
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-      });
-    });
-  </script>
-
-  <!-- <script>
-  document.querySelector('ul.examples li.warning.confirm button').onclick = function(){
-    swal({
-      title: "Are you sure?",
-      text: "You will not be able to recover this imaginary file!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: '#DD6B55',
-      confirmButtonText: 'Yes, delete it!',
-      closeOnConfirm: false
-    },
-    function(){
-      swal("Deleted!", "Your imaginary file has been deleted!", "success");
-    });
-  };
-
-
-  </script> -->
-
+          <thead>
+            <tr>
+               <th>CODIGO</th>
+               <th>NOMBRE</th>
+               <th>ACCION</th>
+            </tr>
+          </thead>
+          @foreach ($productos as $producto)
+            @if($producto->estadoProd==1 && $estado==1)
+              <tbody>
+                <tr>
+                  <td>{{$producto->codProducto}}</td>
+                  <td>{{$producto->nombreProd}}</td>
+                  <td><center>
+                    {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    <button class="warning cancel delete-modal btn btn-danger">
+                      <span class="glyphicon glyphicon-trash"></span> Dar de baja
+                    </button>
+                  </center>
+                  </td>
+                </tr>
+              </tbody>
+            @endif
+           @if($producto->estadoProd==0 && $estado==0)
+              <tbody>
+                <tr>
+                   <td>{{$producto->codProducto}}</td>
+                  <td>{{$producto->nombreProd}}</td>
+                  <td><center>
+                    {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    <button class="warning cancel delete-modal btn btn-danger">
+                      <span class="glyphicon glyphicon-trash"></span> Activar
+                    </button>
+                  </center>
+                  </td>
+                </tr>
+              </tbody>
+            @endif
+            @if($estado==2)
+              <tbody>
+                <tr>
+                  <td>{{$producto->codProducto}}</td>
+                  <td>{{$producto->nombreProd}}</td>
+                  <td><center>
+                    {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    @if($producto->estadoProd==1)
+                      <button class="warning cancel delete-modal btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Dar de baja
+                      </button>
+                  @else
+                      <button class="warning cancel delete-modal btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Activar
+                      </button>
+                  @endif
+                  </center>
+                  </td>
+                </tr>
+              </tbody>
+            @endif
+          @endforeach
+        </table>
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+  </div><!-- /.col -->
+</div><!-- /.row -->
 @stop
-

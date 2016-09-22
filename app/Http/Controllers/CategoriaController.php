@@ -18,10 +18,10 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        
-      $categorias= \SICVFG\Categoria::paginate(2);
+      $estado=2;
+      $categorias= \SICVFG\Categoria::all();
         //Accedemos al modelo a extraer los datos que necesitamos
-       return view ('categoria.index',compact('categorias'));
+       return view ('categoria.index',compact('categorias','estado'));
         //Enviamos la informacion obtenida en la variable categoria  
     }
 
@@ -99,9 +99,22 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        \SICVFG\Categoria::destroy($id);
+        /*\SICVFG\Categoria::destroy($id);
         Session::flash('mensaje','Categoria Eliminada con Exito');
-        return Redirect::to('/categoria');
+        return Redirect::to('/categoria');*/
 
+    }
+
+    public function desactivo($id)
+    {
+        $estado=0;
+        $categorias= \SICVFG\Categoria::All();
+        return view('categoria.index',compact('categorias','estado'));
+    }
+    public function activo($id)
+    {
+        $estado=1;
+        $categorias= \SICVFG\Categoria::All();
+        return view('categoria.index',compact('categorias','estado'));
     }
 }
