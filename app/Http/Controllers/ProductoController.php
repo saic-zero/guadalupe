@@ -23,8 +23,9 @@ class ProductoController extends Controller
      public function index()
     { 
       $estado=2;
+     $categorias=\SICVFG\Categoria::lists('nombreCategoria','id');
      $productos= \SICVFG\Producto::All();
-     return view('producto.index',compact('productos','estado'));
+     return view('producto.index',compact('productos','estado','categorias'));
     }
 
 
@@ -53,7 +54,6 @@ class ProductoController extends Controller
         'codProducto'=>$request['codProducto'],
         'nombreProd'=>$request['nombreProd'],
         'descripcionProd'=> $request['descripcionProd'],
-        'presentacionProd'=>$request['presentacionProd'],
         'stockMinimo'=>$request['stockMinimo'],
         'stockMaximo'=> $request['stockMaximo'],
         'categoria_id'=> $request['categoria_id'],
@@ -70,8 +70,13 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {//El metodo show se utilizara en este caso para habilitar
+        
+        $productos=\SICVFG\Producto::findOrFail($id);
+        $productos->estadoProd=1; //modificamos el estado 
+        $productos->update();
+        Session::flash('mensaje','Producto Habilitado con Exito');
+        return Redirect::to('/producto');
     }
 
     /**
@@ -118,6 +123,11 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+        $productos=\SICVFG\Producto::findOrFail($id);
+        $productos->estadoProd=0; //modificamos el estado a uno asumir que esta deshabilitado
+        $productos->update();
+        Session::flash('mensaje','Producto Deshabilitado con Exito');
+        return Redirect::to('/producto');
     }
  public function desactivo($id)
     {
@@ -131,4 +141,22 @@ class ProductoController extends Controller
         $productos= \SICVFG\Producto::All();
         return view('producto.index',compact('productos','estado'));
     }
+
+     public function ver($id)
+    {
+         $c = \SICVFG\Producto::find($id);
+         $p = \SICVFG\Presentaciones::where('producto_id',$id)->orderBy('equivale','asc')->paginate(8);
+         $pp = \SICVFG\Presentaciones::where('producto_id',$id)->orderBy('equivale','desc')->get();
+         $w = \SICVFG\Presentaciones::where('producto_id',$id)->count();
+         $cant = $prec = 0;
+       
+         if($cant == 0){
+           $precu = 0;
+         }else{
+           $precu = $prec / $cant;
+         }
+         return view('producto.ver',compact('c','p','w','precu','cant','pp'));
+    }
+
+
 }

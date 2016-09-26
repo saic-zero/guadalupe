@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('content')
 @if (Session::has('mensaje'))
-<div class="alert alert-info" role="alert" >
+<div class="alert alert-success" role="alert" >
   <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
 {{Session::get('mensaje')}}
 </div>
@@ -21,17 +21,26 @@
         <h3 class="box-title">Administración de Productos</h3>
       </div><!-- /.box-header -->
       <br>
+
+      {!!link_to_action("frontController@index", $title = "Salir", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("ProductoController@index", $title = "Todos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("ProductoController@activo", $title = "activos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("ProductoController@desactivo", $title = "Desactivos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+      @if($estado==2)
+      {!!link_to_route('presentaciones.create',$title=' + Presentación', $parametro= 1, $attributes = ["class"=>"btn bg-olive"])!!}   
+       @endif
+       @if($estado==2)
+      {!!link_to_route('producto.create',$title='Nuevo', $parametro= 1, $attributes = ["class"=>"btn bg-olive"])!!}   
+       @endif
+      
       <br><br>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
-               <th>CODIGO</th>
-               <th>NOMBRE</th>
-               <th>ACCION</th>
+               <th bgcolor="#e5eef7">CODIGO</th>
+               <th bgcolor="#e5eef7">NOMBRE</th>
+               <th bgcolor="#e5eef7">ACCION</th>
             </tr>
           </thead>
           @foreach ($productos as $producto)
@@ -40,13 +49,17 @@
                 <tr>
                   <td>{{$producto->codProducto}}</td>
                   <td>{{$producto->nombreProd}}</td>
-                  <td><center>
-                    {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    <button class="warning cancel delete-modal btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span> Dar de baja
-                    </button>
-                  </center>
-                  </td>
+                  <td>
+                      <div align="center">
+                          <table>
+                              <tr>
+                                 <!--<td>{!!link_to_action("ProductoController@ver", $title = "ver", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!} </td> -->
+                                  <td>{!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('producto.DESHABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                 </tr>
               </tbody>
             @endif
@@ -55,13 +68,16 @@
                 <tr>
                    <td>{{$producto->codProducto}}</td>
                   <td>{{$producto->nombreProd}}</td>
-                  <td><center>
-                    {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    <button class="warning cancel delete-modal btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span> Activar
-                    </button>
-                  </center>
-                  </td>
+                 <td>
+                     <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('producto.HABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                 </tr>
               </tbody>
             @endif
@@ -70,19 +86,29 @@
                 <tr>
                   <td>{{$producto->codProducto}}</td>
                   <td>{{$producto->nombreProd}}</td>
-                  <td><center>
-                    {!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}
                     @if($producto->estadoProd==1)
-                      <button class="warning cancel delete-modal btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span> Dar de baja
-                      </button>
+                     <td>
+                      <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('producto.DESHABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                   @else
-                      <button class="warning cancel delete-modal btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span> Activar
-                      </button>
+                  <td>
+                     <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('producto.edit',$title='Editar', $parametro=$producto->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('producto.HABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                   @endif
-                  </center>
-                  </td>
                 </tr>
               </tbody>
             @endif

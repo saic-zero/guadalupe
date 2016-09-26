@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('content')
 @if (Session::has('mensaje'))
-<div class="alert alert-info" role="alert" >
+<div class="alert alert-success" role="alert" >
   <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
 {{Session::get('mensaje')}}
 </div>
@@ -21,16 +21,20 @@
         <h3 class="box-title">Administración de Categorias</h3>
       </div><!-- /.box-header -->
       <br>
+      {!!link_to_action("frontController@index", $title = "Atras", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("CategoriaController@index", $title = "Todos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("CategoriaController@activo", $title = "activos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("CategoriaController@desactivo", $title = "Desactivos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+       @if($estado==2)
+      {!!link_to_route('categoria.create',$title='Nueva', $parametro= 1, $attributes = ["class"=>"btn bg-olive"])!!}   
+       @endif
       <br><br>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
-             <th>CATEGORIA</th>
-              <th>ACCION</th>
+             <th bgcolor="#e5eef7">CATEGORIA</th>
+              <th bgcolor="#e5eef7">ACCION</th>
             </tr>
           </thead>
           @foreach ($categorias as $categoria)
@@ -38,13 +42,16 @@
               <tbody>
                 <tr>
                 <td>{{$categoria->nombreCategoria}}</td>
-                  <td><center>
-                    {!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    <button class="warning cancel delete-modal btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span> Dar de baja
-                    </button>
-                  </center>
-                  </td>
+                <td>
+                 <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('categoria.DESHABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                 </tr>
               </tbody>
             @endif
@@ -52,13 +59,16 @@
               <tbody>
                 <tr>
                   <td>{{$categoria->nombreCategoria}}</td>
-                 <td><center>
-                    {!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    <button class="warning cancel delete-modal btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span> Activar
-                    </button>
-                  </center>
-                  </td>
+                  <td>
+                   <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('categoria.HABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                 </tr>
               </tbody>
             @endif
@@ -67,15 +77,24 @@
                 <tr>
                  <td>{{$categoria->nombreCategoria}}</td>
                   <td><center>
-                    {!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}
                     @if($categoria->estadoCat==1)
-                      <button class="warning cancel delete-modal btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span> Dar de baja
-                      </button>
+                    <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('categoria.DESHABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
                   @else
-                      <button class="warning cancel delete-modal btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span> Activar
-                      </button>
+                    <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('categoria.edit',$title='Editar', $parametro=$categoria->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('categoria.HABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
                   @endif
                   </center>
                   </td>

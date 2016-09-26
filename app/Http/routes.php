@@ -48,6 +48,7 @@ Route::resource('categoria', 'CategoriaController');
 Route::match(['get','post'],'/producto/desactivo/{id}','ProductoController@desactivo');
 Route::match(['get','post'],'/producto/activo/{id}','ProductoController@activo');
 Route::match(['get','post'],'/producto/index/{id}','ProductoController@index');
+Route::match(['get','post'],'/producto/ver/{id}','ProductoController@ver');
 Route::resource('producto', 'ProductoController');
 
 

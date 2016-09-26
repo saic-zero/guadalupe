@@ -44,7 +44,7 @@ class CategoriaController extends Controller
 
      public function store(Request $request)
     {
-      Categoria::create([
+      \SICVFG\Categoria::create([
     //primer parametro es el campo de BD y el segundo es el del formulario
       'nombreCategoria'=>$request['nombreCategoria'],
       ]);
@@ -57,8 +57,14 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id)//El metodo show se utilizara en este caso para habilitar
     {
+        
+        $categorias=\SICVFG\Categoria::findOrFail($id);
+        $categorias->estadoCat=1; //modificamos el estado a cero asumir que esta deshabilitado
+        $categorias->update();
+        Session::flash('mensaje','Categoria Habilitada con Exito');
+        return Redirect::to('/categoria');
         
     }
 
@@ -102,6 +108,12 @@ class CategoriaController extends Controller
         /*\SICVFG\Categoria::destroy($id);
         Session::flash('mensaje','Categoria Eliminada con Exito');
         return Redirect::to('/categoria');*/
+
+        $categorias=\SICVFG\Categoria::findOrFail($id);
+        $categorias->estadoCat=0; //modificamos el estado a cero asumir que esta deshabilitado
+        $categorias->update();
+        Session::flash('mensaje','Categoria Deshabilitada con Exito');
+        return Redirect::to('/categoria');
 
     }
 

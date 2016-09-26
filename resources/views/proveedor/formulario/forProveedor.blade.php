@@ -1,12 +1,16 @@
 
-<div class="box box-default">
+<div class="box box-primary">
   <div class="box-header with-border">
+  	 <center>
+        {!!link_to_action("ProveedorController@index", $title = "Ver Proveedores", $parameters = 1, $attributes = ["class"=>"btn btn-primary"])!!}
+   </center>
     <h3 class="box-title">Proveedores</h3>
     <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
   </div><!-- /.box-header -->
+
   <div class="box-body">
     <div class="row">
-    <div class="col-md-6">
+    <div class="col-xs-7">
         <table class="table">
     <tr>
 
@@ -28,10 +32,12 @@
 
 
     	   <tr>
+    	   	<div class="col-xs-4">
 			    <div class="form-group">
 				<td>{!!Form::label('lbRUC','* NRC:')!!}</td>
 				<td>{!!Form::text('RUC',null,['class'=>'form-control', 'placeholder'=>'Ejemplo:12345-6','required'])!!}</td>
 			    </div>
+			</div>
 	      </tr>
 					
 

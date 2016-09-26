@@ -63,12 +63,12 @@ class ProveedorController extends Controller
      */
     public function show($id)//El metodo show se utilizara en este caso para habilitar un proveedor
     {
-        /*
+        
         $proveedor=\SICVFG\Proveedor::findOrFail($id);
-        $proveedor->estadoProv=1; //modificamos el estado a cero asumir que esta deshabilitado
+        $proveedor->estadoProv=1; //modificamos el estado 
         $proveedor->update();
-        Session::flash('mensaje','Proveedor Habilitado con Exito');
-        return Redirect::to('/proveedor');*/
+         Session::flash('mensaje','Proveedor Habilitado con Exito');
+        return Redirect::to('/proveedor');
     }
 
     /**
@@ -111,11 +111,11 @@ class ProveedorController extends Controller
     public function destroy($id)
     {    
     
-        /*$proveedor=\SICVFG\Proveedor::findOrFail($id);
+        $proveedor=\SICVFG\Proveedor::findOrFail($id);
         $proveedor->estadoProv=0; //modificamos el estado a cero asumir que esta deshabilitado
         $proveedor->update();
-         Session::flash('mensaje','Proveedor deshabilitado con Exito');
-        return Redirect::to('/proveedor');*/
+         Session::flash('mensaje','Proveedor Deshabilitado con Exito');
+        return Redirect::to('/proveedor');
     }
 
 

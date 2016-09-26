@@ -5,7 +5,6 @@
 <link href="images/favicon.png" rel="icon" />
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<!-- Bootstrap 3.3.5 -->
 {!!Html::style('bootstrap/css/bootstrap.min.css')!!}
 <!-- Font Awesome -->
 {!!Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')!!}
@@ -13,6 +12,15 @@
 {!!Html::style('fonts/ionicons.min.css')!!}
 <!-- Theme style -->
 {!!Html::style('dist/css/AdminLTE.min.css')!!}
+
+{!!Html::style('plugins/datatables/dataTables.bootstrap.css')!!}
+
+<!-- alertas con script -->
+{!!Html::style('css/sweetalert.css')!!}
+<!--fin de alertas con script   -->
+
+
+
 <!-- AdminLTE Skins. Choose a skin from the css/skins
 		 folder instead of downloading all of them to reduce the load. -->
 		 {!!Html::style('dist/css/skins/_all-skins.min.css')!!}
@@ -206,10 +214,10 @@
 													    </a>
 													    <ul class="treeview-menu">
 							                            <li>
-																<a href="{!!URL::to('/Presentaciones/show')!!}"><i class='fa fa-plus fa-fw'></i>Agregar</a>
+																<a href="{!!URL::to('/presentaciones/create')!!}"><i class='fa fa-plus fa-fw'></i>Agregar</a>
 														</li>
 														<li>
-																<a href="{!!URL::to('/categoria')!!}"><i class='fa fa-gears '></i> Administrar</a>
+																<a href="{!!URL::to('/presentaciones')!!}"><i class='fa fa-gears '></i> Administrar</a>
 														</li>
 														 <li>
 									                            <a href="{!!URL::to('')!!}"><i class='glyphicon glyphicon-eye-open '></i> Informe</a>
@@ -390,7 +398,9 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
+				@yield('content')
 				<img src="images/header-bg.jpg" width="1090" height="600"></img>
+
 			</section>
 	<!-- jQuery 2.1.4 -->
 	<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>

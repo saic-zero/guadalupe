@@ -7,8 +7,11 @@ if($bandera==1){
  ?>
 
   @include('alertas.request')
-<div class="box box-default">
+<div class="box box-primary">
   <div class="box-header with-border">
+   <center>
+        {!!link_to_action("ProductoController@index", $title = "Ver Productos", $parameters = 1, $attributes = ["class"=>"btn btn-primary"])!!}
+   </center>
     <h3 class="box-title">Productos</h3>
     <h6 class="campoObligatorio">los campos con ( * ) son obligatorios</h6>
   </div><!-- /.box-header -->

@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('content')
 @if (Session::has('mensaje'))
-<div class="alert alert-info" role="alert" >
+<div class="alert alert-success" role="alert" >
   <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
 {{Session::get('mensaje')}}
 </div>
@@ -21,9 +21,13 @@
         <h3 class="box-title">Administración de Presentaciones</h3>
       </div><!-- /.box-header -->
       <br>
+      {!!link_to_action("frontController@index", $title = "Salir", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("PresentacionesController@index", $title = "Todos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("PresentacionesController@activo", $title = "activos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
       {!!link_to_action("PresentacionesController@desactivo", $title = "Desactivos", $parameters = 1, $attributes = ["class"=>"btn bg-olive"])!!}
+        @if($estado==2)
+      {!!link_to_route('presentaciones.create',$title='Nuevo', $parametro= 1, $attributes = ["class"=>"btn bg-olive"])!!}   
+       @endif
       <br><br>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -42,14 +46,16 @@
                     <td>{{$p->nombrePre}}</td>
                     <td><center>{{$p->equivale}}</center></td>
                     <td><center>{{'$ '.$p->ganancia}}</center></td>
-             
-                  <td><center>
-                    {!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    <button class="warning cancel delete-modal btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span> Dar de baja
-                    </button>
-                  </center>
-                  </td>
+                     <td>
+                        <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('presentaciones.DESHABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                 </tr>
               </tbody>
             @endif
@@ -59,14 +65,16 @@
                   <td>{{$p->nombrePre}}</td>
                     <td><center>{{$p->equivale}}</center></td>
                     <td><center>{{'$ '.$p->ganancia}}</center></td>
-             
-                  <td><center>
-                    {!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}
-                    <button class="warning cancel delete-modal btn btn-danger">
-                      <span class="glyphicon glyphicon-trash"></span> Activar
-                    </button>
-                  </center>
-                  </td>
+                    <td>
+                        <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('presentaciones.HABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                 </tr>
               </tbody>
             @endif
@@ -76,19 +84,29 @@
                     <td>{{$p->nombrePre}}</td>
                     <td><center>{{$p->equivale}}</center></td>
                     <td><center>{{'$ '.$p->ganancia}}</center></td>
-                  <td><center>
-                    {!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}
                     @if($p->estadoPres==1)
-                      <button class="warning cancel delete-modal btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span> Dar de baja
-                      </button>
+                      <td>
+                        <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('presentaciones.DESHABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                   @else
-                      <button class="warning cancel delete-modal btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span> Activar
-                      </button>
+                      <td>
+                        <div align="center">
+                          <table>
+                              <tr>
+                                  <td>{!!link_to_route('presentaciones.edit',$title='Editar', $parametro=$p->id,$atributo=['class'=>'btn btn-primary'])!!}</td>
+                                  <td>@include('presentaciones.HABILITAR')</td>
+                              </tr>
+                        </table>
+                      </div><!-- fin tabla que centra los botones-->
+                    </td>
                   @endif
-                  </center>
-                  </td>
                 </tr>
              </tbody> 
             @endif 

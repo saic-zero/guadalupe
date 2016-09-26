@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use SICVFG\Http\Requests;
 use SICVFG\Http\Controllers\Controller;
+use SICVFG\Producto;
+use Session;
+use Redirect;
+use View;
 
 class PresentacionesController extends Controller
 {
@@ -61,7 +65,12 @@ class PresentacionesController extends Controller
      */
     public function show($id)
     {
-      
+        
+        $presentaciones=\SICVFG\Presentaciones::findOrFail($id);
+        $presentaciones->estadoPres=1; //modificamos el estado 
+        $presentaciones->update();
+        Session::flash('mensaje','presentación Habilitada con Exito');
+        return Redirect::to('/presentaciones');
     }
 
     /**
@@ -107,7 +116,12 @@ class PresentacionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+         $presentaciones=\SICVFG\Presentaciones::findOrFail($id);
+        $presentaciones->estadoPres=0; //modificamos el estado 
+        $presentaciones->update();
+        Session::flash('mensaje','presentación Deshabilitada con Exito');
+        return Redirect::to('/presentaciones');
     }
 
  public function desactivo($id)
