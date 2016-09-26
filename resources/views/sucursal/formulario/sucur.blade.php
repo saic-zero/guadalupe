@@ -20,7 +20,7 @@
 						<div class="col-md-6">
 						<div class="form-group">
 							{!!Form::label('lbTelefono','* Teléfono:')!!}
-							{!!Form::text('telefonoSuc',null,['class'=>'form-control', 'placeholder'=>'Telefono...','required'])!!}
+							{!!Form::text('telefonoSuc',null,['onKeyPress'=>'return validarTelefono(event)','id'=>'telefonoSuc','class'=>'form-control', 'placeholder'=>'Telefono ..','required'])!!}
 						</div><!-- /.form-group -->
 						<div class="form-group">
 							{{-- {!!Form::label('lbEstado','* Estado:')!!}

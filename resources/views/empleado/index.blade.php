@@ -46,7 +46,7 @@
                   <td>{{$empleado->telefonoEmp}}</td>
                   <td>{{$empleado->fechaIngrSuc}}</td>
                   <td><center>
-                    {!!link_to_route('empleado.edit',$title='Editar', $parametro=$empleado->id,$atributo=['class'=>'btn btn-primary'])!!}
+                    {!!link_to_route('empleado.edit',$title=' Editar', $parametro=$empleado->id,$atributo=['class'=>'btn btn-primary glyphicon glyphicon-edit'])!!}
                     <button class="warning cancel delete-modal btn btn-danger">
                       <span class="glyphicon glyphicon-trash"></span> Dar de baja
                     </button>

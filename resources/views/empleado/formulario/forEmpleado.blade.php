@@ -24,6 +24,10 @@ if($bandera==1){
 								<div class="col-md-6">
 								<br>
 		 						 <div class="form-group">
+									{!!Form::label('limagen','Imagen:')!!}
+									{!!Form::file('nombre_img',['value'=>'Elija'])!!}
+								</div>
+								<div class="form-group">
 									{!!Form::label('lbNombre','* Nombres:')!!}
 								  {!!Form::text('nombresEmp',null,['class'=>'form-control', 'placeholder'=>'Nombres del Empleado...','required'])!!}
 								 </div><!-- /.form-group -->
@@ -35,20 +39,26 @@ if($bandera==1){
 									{!!Form::label('lbSexo','* Sexo:')!!}
 									<select class="form-control" name="sexo">
 											<option >seleccione una opción...</option>
-											<option >Masculino</option>
-											<option >Femenino</option>
+													@if($empleados->sexo=='Masculino')
+												<option selected="selected">Masculino</option>
+												<option >Femenino</option>
+											@else
+												<option>Masculino</option>
+												<option selected="selected">Femenino</option>
+											@endif
 									</select>
 								</div><!-- /.form-group -->
 							</div><!-- /.col primera columna -->
 		 					<div class="col-md-6">
 									<br>
+									<br><br><br>
 		 							<div class="form-group">
 										{!!Form::label('lbFechaNac','* Fecha de Nacimiento:')!!}
 										{!!Form::date('fechaNacimiento',null,['class'=>'form-control', 'placeholder'=>'Fecha...','required'])!!}
 									</div><!-- /.form-group -->
 									<div class="form-group">
 										{!!Form::label('lbTelefono','* Teléfono :')!!}
-										<input name="telefonoEmp" id="telefonoEmp" type="text" class="form-control" data-inputmask='"mask": "9999-9999"' data-mask>
+										{!!Form::text('telefonoEmp',null,['onKeyPress'=>'return validarTelefono(event)','id'=>'telefonoEmp','class'=>'form-control', 'placeholder'=>'Telefono ..','required'])!!}
 									</div><!-- /.form-group -->
 									<div class="form-group">
 										{!!Form::label('lbDomicilio','* Domicilio:')!!}
@@ -62,22 +72,22 @@ if($bandera==1){
 									<br>
 									<div class="form-group">
 										{!!Form::label('lbDui','* DUI:')!!}
-										{!!Form::text('DUI',null,['id'=>'dui','class'=>'form-control', 'placeholder'=>'Documento Unico de Identidad...','required'])!!}
+										{!!Form::text('DUI',null,['onKeyPress'=>'return validarDUI(event)','id'=>'DUI','class'=>'form-control', 'placeholder'=>'Documento Unico de Identidad...','required'])!!}
 									</div><!-- /.form-group -->
 									<div class="form-group">
 										{!!Form::label('lbNit','* NIT:')!!}
-										{!!Form::text('NIT',null,['id'=>'nit','class'=>'form-control', 'placeholder'=>'Numero de NIT...','required'])!!}
+										{!!Form::text('NIT',null,['onKeyPress'=>'return validarNIT(event)','id'=>'NIT','class'=>'form-control', 'placeholder'=>'Numero de Identificación Tributaria...','required'])!!}
 									</div><!-- /.form-group -->
 								</div><!-- /.col -->
 								<div class="col-md-6">
 									<br>
 									<div class="form-group">
 										{!!Form::label('lbAFP','Num_AFP:')!!}
-										{!!Form::text('numAFP',null,['class'=>'form-control', 'placeholder'=>'Ejemplo: 14555-555','required'])!!}
+										{!!Form::text('numAFP',null,['onKeyPress'=>'return validarNIT(event)','id'=>'numAFP','class'=>'form-control', 'placeholder'=>'Numero de Identificación Tributaria...'])!!}
 									</div><!-- /.form-group -->
 									<div class="form-group">
 										{!!Form::label('lbISSS','Num_ISSS:')!!}
-										{!!Form::text('numISSS',null,['class'=>'form-control', 'placeholder'=>'Ejemplo: 14555-555','id','required'])!!}
+										{!!Form::text('numISSS',null,['class'=>'form-control', 'placeholder'=>'Ejemplo: 14555-555','id'])!!}
 									</div><!-- /.form-group -->
 								</div><!-- /.col -->
 								<p>formulario 2 de 3</p>
@@ -104,7 +114,7 @@ if($bandera==1){
 									{!!Form::label('lbSucursal','* Sucursal:')!!}
 									<select class="form-control" name="sucursal_id">
 										@foreach($sucursals as $s)
-											@if($suc=$s->id && $suc!=null)
+											@if($suc==$s->id && $suc!=null)
 												<option value="{{$s->id}}" selected="selected">{{$s->nombreSuc}}</option>
 											@else
 												<option value="{{$s->id}}">{{$s->nombreSuc}}</option>
@@ -116,7 +126,11 @@ if($bandera==1){
 									{!!Form::label('lbCargo','* Cargo:')!!}
 									<select class="form-control" name="cargo_id">
 										@foreach($cargos as $c)
+											@if($car==$c->id && $car!=null)
+												<option value="{{$c->id}}" selected="selected">{{$c->nombreCargo}}</option>
+											@else
 											<option value="{{$c->id}}" >{{$c->nombreCargo}}</option>
+											@endif
 										@endforeach
 									</select>
 								</div><!-- /.form-group -->

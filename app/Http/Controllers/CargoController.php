@@ -56,7 +56,7 @@ class CargoController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('cargo.tb');
     }
 
     /**

@@ -214,6 +214,9 @@
 	{!!Html::script('plugins/datatables/jquery.dataTables.min.js')!!}
 	{!!Html::script('plugins/datatables/dataTables.bootstrap.min.js')!!}
 
+	{{-- validaciones --}}
+	  {!!Html::script('js/validaciones.js')!!}
+
 		<!-- jQuery UI 1.11.4 -->
 	{!!Html::script('plugins\jQueryUI/jquery-ui.min.js')!!}
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

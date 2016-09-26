@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 @section('content')
 @if (Session::has('mensaje'))
-<div class="alert alert-info" role="alert" >
-  <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
-{{Session::get('mensaje')}}
-</div>
+  <div class="alert alert-info" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
+  {{Session::get('mensaje')}}
+  </div>
 @endif
 @if (Session::has('mensaje1'))
-<div class="alert alert-warning" role="alert" >
-  <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
-{{Session::get('mensaje1')}}
-</div>
+  <div class="alert alert-warning" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="close" name="button"><span aria-hidden="true" >&times;</span></button>
+  {{Session::get('mensaje1')}}
+  </div>
 @endif
 
 <div class="row">
@@ -38,9 +38,7 @@
               <th>Accion</th>
             </tr>
           </thead>
-
-          @foreach ($cargos as $cargo)
-            {{-- @if(est==1 && cargo->est) --}}
+          @foreach($cargos as $cargo)
           <tbody>
             <tr>
               <td>{{$cargo->nombreCargo}}</td>
@@ -54,29 +52,10 @@
               </td>
             </tr>
             </tbody>
-          {{-- @else --}}
             @endforeach
-
           </table>
         </div><!-- /.box-body -->
       </div><!-- /.box -->
     </div><!-- /.col -->
   </div><!-- /.row -->
-  <div>
-  </div>
-
-  <script>
-    $(function () {
-      $("#example1").DataTable();
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-      });
-    });
-  </script>
-
 @stop

@@ -48,6 +48,7 @@ class EmpleadoController extends Controller
     {
       Empleado::create([
         'codEmpleado'=>$request['codEmpleado'],
+        'nombre_img'=>$request['nombre_img'],
         'nombresEmp'=>$request['nombresEmp'],
         'apellidosEmp'=> $request['apellidosEmp'],
         'direccionEmp'=>$request['direccionEmp'],
