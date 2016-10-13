@@ -252,7 +252,7 @@
 														 <li>
 									                            <a href="{!!URL::to('')!!}"><i class='glyphicon glyphicon-eye-open '></i> Informe</a>
 									                     </li>
-									                      <li>
+									                       <li>
 														             <li class="treeview">
 																		   <a href="#">
 																			<i class="fa fa-folder text-aqua"></i>
@@ -399,19 +399,30 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				@yield('content')
-				<img src="images/header-bg.jpg" width="1090" height="600"></img>
-
 			</section>
 	<!-- jQuery 2.1.4 -->
 	<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->
 	<script src="plugins\jQueryUI/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<!-- jQuery 2.1.4 -->
+	{!!Html::script('plugins/jQuery/jQuery-2.1.4.min.js')!!}
+	<!-- Bootstrap 3.3.5 -->
+	{!!Html::script('bootstrap/js/bootstrap.min.js')!!}
+
+	{!!Html::script('plugins/datatables/jquery.dataTables.min.js')!!}
+	{!!Html::script('plugins/datatables/dataTables.bootstrap.min.js')!!}
+
+	{{-- validaciones --}}
+	  {!!Html::script('js/validaciones.js')!!}
+
+		<!-- jQuery UI 1.11.4 -->
+	{!!Html::script('plugins\jQueryUI/jquery-ui.min.js')!!}
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button);
 	</script>
-	<!-- Bootstrap 3.3.5 -->
-	{!!Html::script('bootstrap/js/bootstrap.min.js')!!}
+
 	<!-- Morris.js charts -->
 	{!!Html::script('plugins/raphael-min.js')!!}
 	{!!Html::script('plugins/morris/morris.min.js')!!}
@@ -420,8 +431,65 @@
 	<!-- jvectormap -->
 	{!!Html::script('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')!!}
 	{!!Html::script('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')!!}
+	<!-- Slimscroll -->
+	{!!Html::script('plugins/slimScroll/jquery.slimscroll.min.js')!!}
+	<!-- FastClick -->
+	{!!Html::script('plugins/fastclick/fastclick.min.js')!!}
+	<!-- AdminLTE App -->
+	{!!Html::script('dist/js/app.min.js')!!}
+	<!-- AdminLTE for demo purposes -->
+	{!!Html::script('dist/js/demo.js')!!}
+
+<!-- InputMask -->
+{!!Html::script('plugins/input-mask/jquery.inputmask.js')!!}
+{!!Html::script('plugins/input-mask/jquery.inputmask.date.extensions.js')!!}
+{!!Html::script('plugins/input-mask/jquery.inputmask.extensions.js')!!}
+
+
+{!!Html::script('js/sweetalert-dev.js')!!}  <!-- plugin alertas -->
+<!-- This is what you need -->
+<!--.......................-->
+
+<!-- <script>
+document.querySelector('ul.examples li.warning.confirm button').onclick = function(){
+	swal({
+		title: "Are you sure?",
+		text: "You will not be able to recover this imaginary file!",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: '#DD6B55',
+		confirmButtonText: 'Yes, delete it!',
+		closeOnConfirm: false
+	},
+	function(){
+		swal("Deleted!", "Your imaginary file has been deleted!", "success");
+	});
+}; -->
+
+	<script>
+		$(function () {
+			$("#example1").DataTable();
+			$('#example2').DataTable({
+				"paging": true,
+				"lengthChange": false,
+				"searching": false,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false
+			});
+		});
+
+
+	</script>
+	<!--para validar telefono -->
+	<script>
+	$(function () {
+		$("[data-mask]").inputmask();
+	});
+	</script>
 	<!-- jQuery Knob Chart -->
 	{!!Html::script('plugins/knob/jquery.knob.js')!!}
+
 	<!-- daterangepicker -->
 	{!!Html::script('plugins/moment.min.js')!!}
 	{!!Html::script('plugins/daterangepicker/daterangepicker.js')!!}
@@ -429,15 +497,10 @@
 	{!!Html::script('plugins/datepicker/bootstrap-datepicker.js')!!}
 	<!-- Bootstrap WYSIHTML5 -->
 	{!!Html::script('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')!!}
-	<!-- Slimscroll -->
-	{!!Html::script('plugins/slimScroll/jquery.slimscroll.min.js')!!}
-	<!-- FastClick -->
-	{!!Html::script('plugins/fastclick/fastclick.min.js')!!}
-	<!-- AdminLTE App -->
-	{!!Html::script('dist/js/app.min.js')!!}
+
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	{!!Html::script('dist/js/pages/dashboard.js')!!}
-	<!-- AdminLTE for demo purposes -->
-	{!!Html::script('dist/js/demo.js')!!}
+
+	{!!Html::script('js/busqueda.js')!!}
 </body>
 </html>
